@@ -64,3 +64,244 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,2
 .now{font-size:0.8rem;color:var(--muted);opacity:0.9}
 .song{font-weight:700;color:#e8fbff;margin-top:6px}
 .glass{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(0,170,238,0.06)}
+
+
+/* ======== MOBILE UI RESTRUCTURE ======== */
+.mobile-topbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+}
+
+.room-id-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room-id-row h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.room-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.tab-btn.active {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  color: #000;
+}
+
+#tab-content {
+  margin-top: 10px;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* Optimize for mobile width */
+@media (max-width: 900px) {
+  .center-layout,
+  .side-pane {
+    display: none;
+  }
+
+  .player-pane {
+    margin-top: 0;
+  }
+
+  .search-results {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ================== MOBILE-VS-DESKTOP LAYOUT RULES ================== */
+
+/* Default: show desktop topbar & sidebar, hide mobile topbar/tabs */
+#mobile-topbar, #mobile-tabs-wrapper { display: none; }
+
+/* Make sure desktop topbar & side-pane exist and look like before */
+#desktop-topbar { display:flex; }
+
+/* Mobile-specific styles */
+@media (max-width: 900px) {
+  /* hide desktop-only elements */
+  #desktop-topbar { display: none; }
+  #desktop-side { display: none; }
+  .center-layout { grid-template-columns: 1fr !important; gap: 12px; }
+
+  /* show mobile topbar and tabs */
+  #mobile-topbar { display: block; margin-bottom: 10px; }
+  #mobile-tabs-wrapper { display: block; width:100%; margin-top:12px; }
+
+  /* mobile-topbar tweaks */
+  .mobile-topbar { padding: 12px; border-radius: 12px; }
+  .room-id-row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .room-buttons { display:flex; gap:8px; margin-top:8px; }
+
+  /* make player full width and larger on mobile */
+  .player-wrapper::before { padding-top: 56.25%; } /* keep 16:9 */
+  .player-pane { padding:10px; }
+
+  /* mobile tabs */
+  .tabs { display:flex; gap:6px; border-radius:10px; overflow:hidden; }
+  .tab-btn { flex:1; padding:10px; background:rgba(255,255,255,0.02); color:#fff; border:none; font-weight:700; }
+  .tab-btn.active { background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:#000; }
+
+  /* tab content */
+  .mobile-tab-content { margin-top:10px; }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* mobile search results full width and one column */
+  #results-mobile { margin-top:10px; }
+  .search-results { grid-template-columns: repeat(1, 1fr); gap:8px; }
+
+  /* tighten chat for mobile */
+  .chat-messages { max-height: 300px; overflow:auto; padding:6px; }
+  .chat-input { display:flex; gap:6px; margin-top:8px; }
+}
+
+/* ======== ABSOLUTE FIX: force player visible on mobile ======== */
+@media (max-width: 900px) {
+  /* Show player-pane and everything inside */
+  .player-pane,
+  .player-wrapper,
+  .player-iframe {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .player-pane {
+    position: relative !important;
+    width: 100% !important;
+    margin: 10px auto;
+    padding: 10px;
+    background: var(--glass);
+    border-radius: 12px;
+    overflow: visible;
+    min-height: 220px; /* ensures space */
+  }
+
+  .player-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 12px;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .player-wrapper::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* 16:9 aspect */
+  }
+
+  .player-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+  }
+
+  /* fix search bar & buttons visibility */
+  .player-controls {
+    display: block !important;
+    margin-top: 10px;
+  }
+
+  .search-row,
+  .action-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .search-row input {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+/* === FORCE SHOW PLAYER ON MOBILE === */
+@media (max-width: 900px) {
+  /* show the player area that got hidden */
+  .center-layout {
+    display: block !important;
+  }
+
+  .player-pane {
+    display: block !important;
+    width: 100% !important;
+    margin: 12px 0 !important;
+    background: var(--glass);
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .player-wrapper {
+    display: block !important;
+    position: relative !important;
+    width: 100%;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .player-wrapper::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  .player-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+/* === HIDE DESKTOP PLAYER SEARCH ON MOBILE === */
+@media (max-width: 900px) {
+  /* Hide search input and button under the player */
+  .player-controls .search-row {
+    display: none !important;
+  }
+}

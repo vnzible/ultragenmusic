@@ -10,17 +10,32 @@
 </head>
 <body>
   <div class="page">
+    <!-- Nickname Screen -->
     <div class="card nickname-card" id="nickname-screen">
       <h1 class="logo">Annusic</h1>
-      <p class="muted">No login — enter a nickname, create or join a room</p>
+      <p class="muted">No login — enter your nickname to begin</p>
       <input id="nickname" placeholder="Your nickname (e.g. AK Verma)" />
-      <div style="margin-top:12px;">
-        <button id="start-btn" class="btn primary">Start →</button>
-      </div>
+      <button id="start-btn" class="btn primary">Start →</button>
     </div>
 
+    <!-- Room Screen (shared DOM for desktop & mobile) -->
     <div class="room-root hidden" id="room-screen">
-      <header class="topbar">
+
+      <!-- MOBILE TOPBAR (only visible on small screens) -->
+      <header class="mobile-topbar glass" id="mobile-topbar">
+        <div class="room-id-row">
+          <h2 id="room-id-display-mobile">Room: —</h2>
+          <button id="copy-room" class="btn small" title="Copy room id">📋</button>
+        </div>
+        <div class="room-buttons">
+          <input id="join-input-mobile" placeholder="Join room ID" />
+          <button id="join-room-mobile" class="btn small">Join</button>
+          <button id="create-room-mobile" class="btn small secondary">Create</button>
+        </div>
+      </header>
+
+      <!-- TOP BAR (desktop; kept as earlier) -->
+      <header class="topbar" id="desktop-topbar">
         <div class="left">
           <h2 id="room-id-display">Room: —</h2>
           <div class="tiny muted" id="room-sub">Share this ID to invite</div>
@@ -41,7 +56,6 @@
           </div>
 
           <div class="player-wrapper">
-            <!-- responsive aspect-ratio container -->
             <div class="player-iframe" id="youtube-player"></div>
           </div>
 
@@ -63,7 +77,8 @@
           <div id="results" class="search-results"></div>
         </section>
 
-        <aside class="side-pane">
+        <!-- DESKTOP SIDEBAR (visible on wide screens) -->
+        <aside class="side-pane" id="desktop-side">
           <div class="panel glass members">
             <h4>Members</h4>
             <ul id="user-list" class="user-list"></ul>
@@ -79,6 +94,38 @@
           </div>
         </aside>
       </main>
+
+      <!-- MOBILE TABS (only visible on small screens) -->
+      <div class="mobile-tabs-wrapper" id="mobile-tabs-wrapper">
+        <div class="tabs glass" id="mobile-tabs">
+          <button class="tab-btn active" data-tab="search">Search</button>
+          <button class="tab-btn" data-tab="chat">Chat</button>
+          <button class="tab-btn" data-tab="members">Members</button>
+        </div>
+
+        <div id="tab-content" class="mobile-tab-content">
+          <div class="tab-panel active" id="tab-search">
+            <div class="search-controls">
+              <input id="search-input-mobile" placeholder="Search YouTube..." />
+              <button id="search-btn-mobile" class="btn small primary">Search</button>
+            </div>
+            <div id="results-mobile" class="search-results"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-chat">
+            <div id="chat-messages-mobile" class="chat-messages"></div>
+            <div class="chat-input">
+              <input id="chat-box-mobile" placeholder="Type message..." />
+              <button id="send-chat-mobile" class="btn small primary">Send</button>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-members">
+            <ul id="user-list-mobile" class="user-list"></ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
