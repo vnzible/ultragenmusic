@@ -305,3 +305,121 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,2
     display: none !important;
   }
 }
+
+
+/* === MOBILE POLISH / CLEAN FINAL LOOK === */
+@media (max-width: 900px) {
+
+  /* Compact top section */
+  #mobile-topbar {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px;
+    margin: 0 auto 10px auto;
+    border-radius: 14px;
+    background: var(--glass);
+    backdrop-filter: blur(12px) saturate(130%);
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+
+  #mobile-topbar .room-id-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #mobile-topbar .room-id-row h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+  }
+
+  #mobile-topbar .room-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  #mobile-topbar .room-buttons input {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  /* Player should dominate width */
+  .player-pane {
+    margin: 8px 0;
+    padding: 8px;
+    background: var(--glass);
+    border-radius: 14px;
+  }
+
+  .player-wrapper {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .player-wrapper::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  .player-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Center the "Now Playing" text */
+  .player-top {
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .now {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  #now-playing {
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Tabs look tighter */
+  .tabs {
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .tab-btn {
+    padding: 10px 0;
+    font-size: 0.9rem;
+  }
+
+  /* Chat / Search panels spacing */
+  .mobile-tab-content {
+    margin-top: 10px;
+    border-radius: 12px;
+    background: var(--glass);
+    padding: 10px;
+  }
+
+  .chat-input,
+  .search-controls {
+    margin-top: 8px;
+  }
+
+  .btn.small {
+    padding: 8px 10px;
+  }
+}
