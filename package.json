@@ -1,14 +1,24 @@
 {
-  "name": "groic-clone",
-  "version": "1.0.0",
-  "description": "Groic-style listen together app with YouTube sync",
+  "name": "annusic",
+  "version": "2.0.0",
+  "description": "Annusic — realtime listen together",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
     "express": "^4.18.2",
-    "socket.io": "^4.7.2"
-  }
+    "socket.io": "^4.7.2",
+    "mongoose": "^7.5.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["annusic","chat","realtime","listen-together"],
+  "author": "AK Verma",
+  "license": "MIT"
 }

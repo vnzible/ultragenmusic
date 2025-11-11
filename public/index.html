@@ -3,25 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Groic Clone — Ultra Theme</title>
+  <title>Annusic — Listen together</title>
 
-  <!-- ====== Put your YouTube Data API key here (replace YOUR_KEY) ======
-       If you don't have one, create it in Google Cloud Console and paste it below.
-  -->
- 
-
-
-  <!-- YouTube iframe API (required) -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-   <script src="/config.js"></script>
-
+  <script src="/config.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="page">
     <div class="card nickname-card" id="nickname-screen">
-      <h1 class="logo">Groic • Ultra</h1>
-      <p class="muted">No login — enter a nickname and create or join a room</p>
+      <h1 class="logo">Annusic</h1>
+      <p class="muted">No login — enter a nickname, create or join a room</p>
       <input id="nickname" placeholder="Your nickname (e.g. AK Verma)" />
       <div style="margin-top:12px;">
         <button id="start-btn" class="btn primary">Start →</button>
@@ -50,7 +41,8 @@
           </div>
 
           <div class="player-wrapper">
-            <div id="youtube-player" class="player-iframe"></div>
+            <!-- responsive aspect-ratio container -->
+            <div class="player-iframe" id="youtube-player"></div>
           </div>
 
           <div class="player-controls">

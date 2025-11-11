@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -8,23 +7,25 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  // CORS can be configured here if hosting separately
+  cors: { origin: "*" }
+});
+
 app.get('/config.js', (req, res) => {
-  res.type('js').send(`window.YT_API_KEY = "${process.env.YT_API_KEY}";`);
+  res.type('js').send(`window.YT_API_KEY = "${process.env.YT_API_KEY || ''}";`);
 });
 
 app.use(express.static(path.join(__dirname, "public")));
 
-
-
-const rooms = {}; // { roomId: { users:[{id,name}], video:null, time:0, isPlaying:false } }
+const rooms = {}; // { roomId: { users:[{id,name}], video:null, time:0, isPlaying:false, title: '' } }
 
 io.on("connection", (socket) => {
   socket.on("join-room", ({ roomId, name }) => {
     socket.join(roomId);
     socket.data = { name, roomId };
 
-    if (!rooms[roomId]) rooms[roomId] = { users: [], video: null, time: 0, isPlaying: false };
+    if (!rooms[roomId]) rooms[roomId] = { users: [], video: null, time: 0, isPlaying: false, title: '' };
     rooms[roomId].users.push({ id: socket.id, name });
 
     io.to(roomId).emit("user-list", rooms[roomId].users);
@@ -32,7 +33,8 @@ io.on("connection", (socket) => {
       socket.emit("sync-video", {
         videoId: rooms[roomId].video,
         time: rooms[roomId].time,
-        isPlaying: rooms[roomId].isPlaying
+        isPlaying: rooms[roomId].isPlaying,
+        title: rooms[roomId].title || null
       });
     }
   });
@@ -54,6 +56,9 @@ io.on("connection", (socket) => {
     const room = rooms[data.roomId];
     if (!room) return;
     room.video = data.videoId;
+    room.isPlaying = !!data.playNow;
+    room.time = 0;
+    room.title = data.title || null;
     io.to(data.roomId).emit("load-video", data);
   });
 
@@ -64,8 +69,24 @@ io.on("connection", (socket) => {
     io.to(data.roomId).emit("seek", data);
   });
 
+  // respond to client ping with echo (for latency)
+  socket.on("ping", (t0, cb) => {
+    if (typeof cb === 'function') cb(Date.now());
+  });
+
+  socket.on("request-sync", ({ roomId }) => {
+    const room = rooms[roomId];
+    if (!room) return;
+    io.to(socket.id).emit("sync-video", {
+      videoId: room.video,
+      time: room.time,
+      isPlaying: room.isPlaying,
+      title: room.title || null
+    });
+  });
+
   socket.on("disconnect", () => {
-    const { roomId, name } = socket.data || {};
+    const { roomId } = socket.data || {};
     if (!roomId || !rooms[roomId]) return;
     rooms[roomId].users = rooms[roomId].users.filter(u => u.id !== socket.id);
     io.to(roomId).emit("user-list", rooms[roomId].users);
