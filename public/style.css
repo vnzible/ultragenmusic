@@ -1,0 +1,66 @@
+/* Ultra Chat-inspired Groic theme — Electric Blue accent (#00AEEF) */
+:root{
+  --bg-1: #070716;
+  --bg-2: #0f1220;
+  --glass: rgba(10,15,35,0.45);
+  --accent: #00AEEF;
+  --muted: #a8dff0;
+  --card-radius: 14px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";background:linear-gradient(135deg,var(--bg-1) 0%, var(--bg-2) 100%);color:#eef9ff}
+.page{min-height:100vh;padding:36px;display:flex;align-items:center;justify-content:center;gap:20px}
+
+/* Glass card */
+.card{background:var(--glass);backdrop-filter:blur(10px);border:1px solid rgba(0,170,238,0.07);padding:28px;border-radius:var(--card-radius);box-shadow:0 6px 30px rgba(0,170,238,0.03)}
+.nickname-card{width:420px;text-align:center}
+.logo{font-family:Orbitron, sans-serif;font-size:28px;color:#fff;text-shadow:0 0 12px rgba(0,170,238,0.18)}
+.muted{color:#bcdfe9;opacity:0.85}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#fff;outline:none;margin-top:8px}
+
+/* Buttons */
+.btn{padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.04);color:#fff;cursor:pointer;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#00cfff);color:#012;box-shadow:0 10px 40px rgba(0,170,238,0.14)}
+.btn.secondary{background:transparent;border:1px solid rgba(0,170,238,0.18)}
+.btn.small{padding:6px 8px;font-size:0.9rem;border-radius:8px}
+
+/* Layout for room */
+.hidden{display:none}
+.room-root{width:100%;max-width:1200px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+.topbar .controls{display:flex;gap:8px;align-items:center}
+
+/* Center layout */
+.center-layout{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.player-pane{padding:16px}
+.player-wrapper{height:360px;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.player-iframe{width:100%;height:100%}
+
+/* Player controls */
+.player-controls{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.search-row{display:flex;gap:8px}
+.action-row{display:flex;gap:8px;align-items:center}
+
+/* results */
+.search-results{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.video-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:10px;border:1px solid rgba(0,170,238,0.05)}
+.video-card img{width:100%;height:110px;object-fit:cover;border-radius:8px}
+.video-card p{margin:8px 0;font-size:0.9rem;color:#e6fbff}
+
+/* side pane */
+.side-pane{display:flex;flex-direction:column;gap:12px}
+.panel{padding:12px;border-radius:10px}
+.user-list{list-style:none;padding:0;margin:0}
+.user-list li{padding:6px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+
+/* chat */
+.chat-messages{max-height:220px;overflow:auto;padding:6px}
+.chat-input{display:flex;gap:8px;margin-top:8px}
+.tiny{font-size:0.85rem;color:rgba(255,255,255,0.7)}
+
+/* small touches */
+.now{font-size:0.8rem;color:var(--muted);opacity:0.9}
+.song{font-weight:700;color:#e8fbff;margin-top:6px}
+.glass{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(0,170,238,0.06)}
